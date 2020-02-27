@@ -1,0 +1,83 @@
+swagger: '2.0'
+info:
+  description: This is an API for a patient report reciever
+  version: 1.0.0
+  title: Patient vitals API
+
+paths:
+  /report/book_surgery:
+    post:
+        summary: Books a surgery
+        operationId: app.book_surgery
+        description: Books a surgery
+        consumes:
+        - application/json
+        produces:
+        - application/json
+        parameters:
+        - in: body
+          name: surgeryInfo
+          description: Booking date, date of surgery
+          schema:
+            $ref: '#/definitions/PatientInfo'
+        responses:
+          201:
+            description: Surgery booked
+          400:
+            description: Invalid input, object invalid
+
+  /report/xRay:
+    post:
+      summary: x-ray report
+      operationId: app.xRay_report
+      description: Results of an x-ray
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: report
+        description: Results of an x-ray
+        schema:
+          $ref: '#/definitions/xRayReport'
+      responses:
+        201:
+          description: Item read
+        400:
+          description: Invalid input, object invalid
+
+definitions:
+  xRayReport:
+    type: object
+    required:
+    - timestamp
+    - patient_id
+    - result
+    properties:
+      timestamp:
+        type: string
+        format: date-time
+      patient_id:
+        type: string
+        format: uuid
+      result:
+        type: string
+
+
+  PatientInfo:
+    type: object
+    required:
+    - patient_id
+    - bookingDate
+    - surgeryDate
+    properties:
+      bookingDate:
+        type: string
+        format: date-time
+      surgeryDate:
+          type: string
+          format: date-time
+      patient_id:
+        type: string
+        format: uuid
