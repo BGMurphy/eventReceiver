@@ -14,13 +14,10 @@ with open('log_conf.yaml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 
-with open('app_conf.yaml', 'r') as f:
-    app_config = yaml.safe_load(f.read())
-
 logger = logging.getLogger('basicLogger')
 
-STORE_SURGERY_INFO_REQUEST_URL = app_config['datastore']['hostname'] + ":8090/report/book_surgery"
-STORE_XRAY_REPORT_REQUEST_URL = app_config['datastore']['hostname'] + ":8090/report/xRay"
+STORE_SURGERY_INFO_REQUEST_URL = "http://localhost:8090/report/book_surgery"
+STORE_XRAY_REPORT_REQUEST_URL = "http://localhost:8090/report/xRay"
 HEADERS = {"content-type":"application/json"}
 
 def book_surgery(surgeryInfo):
@@ -59,6 +56,9 @@ app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml")
 CORS(app.app)
 app.app.config['CORS_HEADERS'] = 'Content-Type'
+
+with open('app_conf.yaml', 'r') as f:
+    app_config = yaml.safe_load(f.read())
 
 if __name__ == "__main__":
     app.run(port=8080)
