@@ -16,8 +16,8 @@ with open('log_conf.yaml', 'r') as f:
 
 logger = logging.getLogger('basicLogger')
 
-STORE_SURGERY_INFO_REQUEST_URL = "http://localhost:8090/report/book_surgery"
-STORE_XRAY_REPORT_REQUEST_URL = "http://localhost:8090/report/xRay"
+STORE_SURGERY_INFO_REQUEST_URL = app_config['datastore']['hostname'] + ':' + app_config['datastore']['port'] + "/report/book_surgery"
+STORE_XRAY_REPORT_REQUEST_URL = app_config['datastore']['hostname'] + ':' + app_config['datastore']['port'] + "/report/xRay"
 HEADERS = {"content-type":"application/json"}
 
 def book_surgery(surgeryInfo):
