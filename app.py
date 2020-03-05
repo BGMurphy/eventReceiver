@@ -10,17 +10,17 @@ from flask_cors import CORS, cross_origin
 import logging
 import logging.config
 
-with open('app_conf.yaml', 'r') as f:
-    app_config = yaml.safe_load(f.read())
-
 with open('log_conf.yaml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 
+with open('app_conf.yaml', 'r') as f:
+    app_config = yaml.safe_load(f.read())
+
 logger = logging.getLogger('basicLogger')
 
-STORE_SURGERY_INFO_REQUEST_URL = app_config['datastore']['hostname'] + ':' + app_config['datastore']['port'] + "/report/book_surgery"
-STORE_XRAY_REPORT_REQUEST_URL = app_config['datastore']['hostname'] + ':' + app_config['datastore']['port'] + "/report/xRay"
+STORE_SURGERY_INFO_REQUEST_URL = app_config['datastore']['hostname'] + ":8090/report/book_surgery"
+STORE_XRAY_REPORT_REQUEST_URL = app_config['datastore']['hostname'] + ":8090/report/xRay"
 HEADERS = {"content-type":"application/json"}
 
 def book_surgery(surgeryInfo):
