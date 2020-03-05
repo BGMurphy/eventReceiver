@@ -10,6 +10,9 @@ from flask_cors import CORS, cross_origin
 import logging
 import logging.config
 
+with open('app_conf.yaml', 'r') as f:
+    app_config = yaml.safe_load(f.read())
+
 with open('log_conf.yaml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
@@ -56,9 +59,6 @@ app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml")
 CORS(app.app)
 app.app.config['CORS_HEADERS'] = 'Content-Type'
-
-with open('app_conf.yaml', 'r') as f:
-    app_config = yaml.safe_load(f.read())
 
 if __name__ == "__main__":
     app.run(port=8080)
