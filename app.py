@@ -57,8 +57,12 @@ app.add_api("openapi.yaml")
 CORS(app.app)
 app.app.config['CORS_HEADERS'] = 'Content-Type'
 
-with open('app_conf.yaml', 'r') as f:
-    app_config = yaml.safe_load(f.read())
+try:
+    with open('/config/app_conf.yaml', 'r') as f:
+        app_config = yaml.safe_load(f.read())
+except:
+    with open('app_conf.yaml', 'r') as f:
+        app_config = yaml.safe_load(f.read())
 
 if __name__ == "__main__":
     app.run(port=8080)
