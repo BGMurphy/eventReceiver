@@ -16,12 +16,9 @@ with open('log_conf.yaml', 'r') as f:
 
 logger = logging.getLogger('basicLogger')
 
-#STORE_SURGERY_INFO_REQUEST_URL = "http://localhost:8090/report/book_surgery"
-#STORE_XRAY_REPORT_REQUEST_URL = "http://localhost:8090/report/xRay"
 HEADERS = {"content-type":"application/json"}
 
 def book_surgery(surgeryInfo):
-    #response = requests.post(STORE_SURGERY_INFO_REQUEST_URL, json=surgeryInfo, headers=HEADERS)
     print(surgeryInfo)
     kafka = app_config['datastore']['server'] + ':' + app_config['datastore']['port']
     client = KafkaClient(hosts=kafka)
@@ -37,7 +34,6 @@ def book_surgery(surgeryInfo):
     return NoContent, 201
 
 def xRay_report(report):
-    #response = requests.post(STORE_XRAY_REPORT_REQUEST_URL, json=report, headers=HEADERS)
     print(report)
     kafka = app_config['datastore']['server'] + ':' + app_config['datastore']['port']
     client = KafkaClient(hosts=kafka)
